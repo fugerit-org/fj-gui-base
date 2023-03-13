@@ -1,0 +1,131 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.fugerit.java</groupId>
+		<artifactId>fj-bom</artifactId>
+		<version>0.2.3</version>
+		<relativePath></relativePath>
+	</parent>
+
+	<artifactId>fj-gui-base</artifactId>
+	<version>0.1.0</version>
+
+	<name>fj-gui-base</name>
+	<description>Simple API to build a basic GUI</description>
+
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<organization>
+		<url>https://www.fugerit.org</url>
+		<name>Fugerit</name>
+	</organization>
+		
+	<url>http://www.fugerit.org/java/</url>
+
+	<developers>
+		<developer>
+			<name>Matteo a.k.a. Fugerit</name>
+			<email>m@fugerit.org</email>
+			<organization>Fugerit</organization>
+			<organizationUrl>https://www.fugerit.org</organizationUrl>
+		</developer>
+		<developer>
+			<name>Daneel</name>
+			<email>d@fugerit.org</email>
+			<organization>Fugerit</organization>
+			<organizationUrl>https://www.fugerit.org</organizationUrl>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>scm:git:git://github.com/fugerit-org/fj-gui-base.git</connection>
+		<developerConnection>scm:git:ssh://github.com/fugerit-org/fj-gui-base.git</developerConnection>
+		<url>http://github.com/fugerit-org/fj-gui-base</url>
+	</scm>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java-version-compliance>11</java-version-compliance>
+		<maven.compiler.source>${java-version-compliance}</maven.compiler.source>
+		<maven.compiler.target>${java-version-compliance}</maven.compiler.target>
+		<fj-version>0.8.14-rc.3</fj-version>
+	</properties>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>org.fugerit.java</groupId>
+			<artifactId>fj-core</artifactId>
+			<version>${fj-version}</version>
+		</dependency>
+
+		<dependency>
+		    <groupId>org.apache.logging.log4j</groupId>
+		    <artifactId>log4j-slf4j-impl</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+
+
+	<profiles>
+	
+		<profile>
+			<id>singlepackage</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-jar-plugin</artifactId>
+						<configuration>
+							<archive>
+								<manifest>
+									<addClasspath>true</addClasspath>
+									<mainClass>org.fugerit.java.client.redis.ClientRedisRun</mainClass>
+								</manifest>
+							</archive>
+						</configuration>
+					</plugin>				
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-shade-plugin</artifactId>
+						<executions>
+							<execution>
+								<phase>package</phase>
+								<goals>
+									<goal>shade</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<finalName>dist-${project.artifactId}-${project.version}</finalName>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>	
+	
+	</profiles>
+
+</project>
