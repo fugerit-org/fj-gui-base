@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <entry key="config.menu.title">Config</entry>
+    <entry key="config.menu.mi.load">Load configuration</entry>
+    <entry key="config.menu.mi.save">Save configuration</entry>
+    <entry key="config.menu.mi.log">Message log</entry>
+    <entry key="config.frame.log.frame.title">Log window</entry>
+</properties>

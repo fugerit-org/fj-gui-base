@@ -7,20 +7,27 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.Locale;
 
 import javax.swing.JFrame;
 
 import org.fugerit.java.core.cfg.store.helper.ConfigStoreDefault;
 import org.fugerit.java.core.cfg.store.helper.ConfigStoreIO;
+import org.fugerit.java.core.util.i18n.BundleMapI18N;
+import org.fugerit.java.core.util.i18n.HelperI18N;
 import org.fugerit.java.gui.base.event.ActionListenerDefault;
 import org.fugerit.java.gui.base.event.ItemListenerDefault;
 import org.fugerit.java.gui.base.event.WindowListenerDefault;
 import org.fugerit.java.gui.base.event.impl.config.ConfigStoreHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class BaseFrame extends JFrame implements WindowListener, ActionListener, ItemListener, ConfigStoreHelper {
 
 	private static final long serialVersionUID = 90544453453L;
 
+	private static final Logger logger = LoggerFactory.getLogger( BaseFrame.class );
+	
 	/**
 	 * UI customization.
 	 *
@@ -29,10 +36,14 @@ public class BaseFrame extends JFrame implements WindowListener, ActionListener,
 	 * @param c	the component to customize
 	 * @return	the customized component
 	 */
-	public Component setUI( Component c ) {
+	public <T extends Component> T setUI( T c ) {
 		return c;
 	}
 
+	private HelperI18N helperI18NCore;
+	
+	private Locale language;
+	
 	private ConfigStoreIO configStoreIO;
 
 	private ConfigStoreDefault configStore;
@@ -57,6 +68,14 @@ public class BaseFrame extends JFrame implements WindowListener, ActionListener,
 		this.actionListener = new ActionListenerDefault(this.contextWrapper);
 		this.itemListener = new ItemListenerDefault(this.contextWrapper);
 		this.windowListener = new WindowListenerDefault(this.contextWrapper);
+		this.language = Locale.getDefault();
+		Locale defLoc = Locale.ENGLISH;
+		logger.info( "locale {}, def locale {}", this.language.getLanguage(), defLoc.getLanguage() );
+		this.helperI18NCore = BundleMapI18N.newHelperI18N( "gui-base-i18n.label-gui-core", defLoc.getLanguage(), this.language.getLanguage() );
+	}
+
+	public String getCoreLabel( String key ) {
+		return this.helperI18NCore.getString( this.language.getLanguage() , key );
 	}
 
 	public EventContext getContext() {

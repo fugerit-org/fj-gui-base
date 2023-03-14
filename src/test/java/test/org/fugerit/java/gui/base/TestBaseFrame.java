@@ -1,6 +1,7 @@
 package test.org.fugerit.java.gui.base;
 
-import org.fugerit.java.gui.base.BaseFrame;
+import java.util.Locale;
+
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,7 @@ public class TestBaseFrame {
     }
 
     public static void main( String[] args ) {
+    	Locale.setDefault( Locale.ITALY );
         FrameTest gui = new FrameTest();
         logger.info( "test frame {}", gui );
     }

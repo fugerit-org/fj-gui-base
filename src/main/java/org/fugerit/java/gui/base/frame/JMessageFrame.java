@@ -26,7 +26,7 @@ public class JMessageFrame extends JFrame {
     }
 
     public JMessageFrame( BaseFrame frame ) {
-        super( "log frame" );
+        super( frame.getCoreLabel( "config.frame.log.frame.title" ) );
         this.setSize( 640, 480 );
         this.setLayout( new BorderLayout() );
         JTextArea logArea = new JTextArea();
